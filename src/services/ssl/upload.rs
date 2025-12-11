@@ -47,7 +47,7 @@ pub enum CertificateType<'a> {
     #[serde(rename = "CA")]
     CA,
     #[serde(rename = "SVR")]
-    SVR,
+    Svr,
     Custom(&'a str),
 }
 
@@ -55,7 +55,7 @@ impl<'a> From<&'a str> for CertificateType<'a> {
     fn from(s: &'a str) -> Self {
         match s.to_uppercase().as_str() {
             "CA" => CertificateType::CA,
-            "SVR" => CertificateType::SVR,
+            "SVR" => CertificateType::Svr,
             _ => CertificateType::Custom(s),
         }
     }
@@ -65,26 +65,26 @@ impl<'a> From<&'a str> for CertificateType<'a> {
 #[serde(rename_all = "UPPERCASE")]
 pub enum CertificateUse<'a> {
     #[serde(rename = "CLB")]
-    CLB,
+    Clb,
     #[serde(rename = "CDN")]
-    CDN,
+    Cdn,
     #[serde(rename = "WAF")]
-    WAF,
+    Waf,
     #[serde(rename = "LIVE")]
-    LIVE,
+    Live,
     #[serde(rename = "DDOS")]
-    DDOS,
+    Ddos,
     Custom(&'a str),
 }
 
 impl<'a> From<&'a str> for CertificateUse<'a> {
     fn from(s: &'a str) -> Self {
         match s.to_uppercase().as_str() {
-            "CLB" => CertificateUse::CLB,
-            "CDN" => CertificateUse::CDN,
-            "WAF" => CertificateUse::WAF,
-            "LIVE" => CertificateUse::LIVE,
-            "DDOS" => CertificateUse::DDOS,
+            "CLB" => CertificateUse::Clb,
+            "CDN" => CertificateUse::Cdn,
+            "WAF" => CertificateUse::Waf,
+            "LIVE" => CertificateUse::Live,
+            "DDOS" => CertificateUse::Ddos,
             _ => CertificateUse::Custom(s),
         }
     }
@@ -352,7 +352,7 @@ mod tests {
         let custom: CertificateType = "CUSTOM_TYPE".into();
 
         assert!(matches!(ca, CertificateType::CA));
-        assert!(matches!(svr, CertificateType::SVR));
+        assert!(matches!(svr, CertificateType::Svr));
         assert!(matches!(custom, CertificateType::Custom("CUSTOM_TYPE")));
     }
 
@@ -364,11 +364,11 @@ mod tests {
             let cert_use: CertificateUse = use_str.into();
 
             match use_str {
-                "CLB" => assert!(matches!(cert_use, CertificateUse::CLB)),
-                "CDN" => assert!(matches!(cert_use, CertificateUse::CDN)),
-                "WAF" => assert!(matches!(cert_use, CertificateUse::WAF)),
-                "LIVE" => assert!(matches!(cert_use, CertificateUse::LIVE)),
-                "DDOS" => assert!(matches!(cert_use, CertificateUse::DDOS)),
+                "CLB" => assert!(matches!(cert_use, CertificateUse::Clb)),
+                "CDN" => assert!(matches!(cert_use, CertificateUse::Cdn)),
+                "WAF" => assert!(matches!(cert_use, CertificateUse::Waf)),
+                "LIVE" => assert!(matches!(cert_use, CertificateUse::Live)),
+                "DDOS" => assert!(matches!(cert_use, CertificateUse::Ddos)),
                 _ => assert!(matches!(cert_use, CertificateUse::Custom("CUSTOM"))),
             }
         }
